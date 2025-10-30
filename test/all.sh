@@ -58,12 +58,21 @@ begin "version"
   euler --version | grep -Eq '^euler(.*)$' && ok || nok
 endtest
 
-begin "valid_language"
+begin "invalid_language"
   euler -e 001 -l not_defined | grep -qE ".*'not_defined'.*" && ok || nok
 endtest
 
-begin "valid_exercise"
+begin "invalid_exercise"
   euler -e not_defined -l python | grep -qE "Exercise:.*not_defined.*" && ok || nok
+endtest
+
+begin "valid_exercise_version"
+  # we cheat as we know the expected result from 001.2 is 233168
+  euler -l python -e 001.2 | grep -q '233168' && ok || nok
+endtest
+
+begin "invalid_exercise_version"
+  euler -l python -e 001.Z | grep -qE 'Exercise: 001 version: Z not found' && ok || nok
 endtest
 
 begin "hello"
@@ -103,9 +112,4 @@ begin "time"
     local v=$(euler -e hello -l ${l} --time 2>&1 | tail -n +2)
     [[ "${v}" =~ ".*user.*system.*cpu.*total$" ]] && ok || nok
   done
-endtest
-
-begin "exercise_version"
-  # we cheat as we know the expected result from 001.2
-  euler -l python -e 001.2 | grep -q '233168' && ok || nok
 endtest

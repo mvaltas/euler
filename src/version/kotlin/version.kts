@@ -1,0 +1,1 @@
+println("${KotlinVersion.CURRENT}")
