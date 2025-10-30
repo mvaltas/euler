@@ -72,6 +72,11 @@ function error {
   exit 1
 }
 
+function warn {
+  readonly msg=${1:?"Message required"}
+  print -P "%F{003}${msg}%f"
+}
+
 function setlang {
   readonly l=${1:?"Language required"}
   readonly i=${2:-${l}}
@@ -114,7 +119,7 @@ function run {
   if [[ -f ${file} ]]; then
     eval ${timeit/--/} ${interpreters[${lang}]} ${file}
   else
-    error "Exercise: ${exer} ${version:+version: ${version}} not found"
+    warn "Exercise: ${exer} ${version:+version: ${version}} not found"
   fi
 }
 
