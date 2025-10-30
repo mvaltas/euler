@@ -59,7 +59,7 @@ begin "version"
 endtest
 
 begin "params"
-  euler 2>&1 | grep -qE "^run_or_show:.*Language required.*" && ok || nok
+  euler 2>&1 | grep -qE "^-h|--help.*Shows this message." && ok || nok
 endtest
 
 begin "hello"
