@@ -12,7 +12,9 @@ readonly SOLDIR=${PROJECT_EULER_DIR:-"src"}
 # 'len' must be 3 (for exercise numbers) or the 
 # length of the word to accomodate other types
 # of exercises such as '-e hello'
-typeset len=$(( ${#ex[-1]} >= 3 ? ${#ex[-1]} : 3))
+# always calculate the base length, 001.2 still len 3
+typeset base_ex=${ex[-1]%.*}
+typeset len=$(( ${#base_ex} >= 3 ? ${#base_ex} : 3))
 
 # (l:N::0:) will left pad with '0', allowing
 # us to pass '-e 1' and create '001' instead
@@ -106,7 +108,7 @@ function run {
   if [[ -f ${file} ]]; then
     eval ${timeit/--/} ${interpreters[${lang}]} ${file}
   else
-    print -P "%F{001}Exercise: ${exer} ${v:+version: ${version}} not found%f"
+    print -P "%F{001}Exercise: ${exer} ${version:+version: ${version}} not found%f"
   fi
 }
 
