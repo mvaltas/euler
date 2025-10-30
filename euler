@@ -188,6 +188,7 @@ setlang "zsh"
 setlang "raku"
 setlang "java"
 setlang "lua"
+setlang "kotlin" "kotlin" "kts"
 
 if [[ -n ${help} ]]; then
   help
